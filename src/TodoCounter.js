@@ -1,9 +1,9 @@
 import './TodoCounter.css'
 
-function TodoCounter({ completed, total }) {
+function TodoCounter({ completed, total }) { // desestructuro los props con los {} y por dentro recibo los props
   return (
       <h1 className='TodoCounter'>
-          Has completado <span>{completed}</span> de <span>{total}</span> ToDos
+          Has completado <span>{completed}</span> de <span>{total}</span> ToDos {/*en este espacio reenderizo el contenido de mi html, este es un fragmento de react lo que retorno para reenderizar*/}
     </h1>
 
   );
