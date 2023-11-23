@@ -32,10 +32,20 @@ function App() {
       const searchText = searchValue.toLocaleLowerCase();
 
       return todoText.includes(searchText);
-
-
     }
-  )
+  );
+
+  const completeTodo =
+    
+    () => {
+      const newTodos = [...todos]
+      const todoIndex = newTodos.findIndex(
+        (todo) => todo.text == text
+      );
+     
+      newTodos[todoIndex].completed = true;
+        setTodos(newTodos);  
+    };
 
    
   console.log("los usuarios buscan " + searchValue);
@@ -58,6 +68,7 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
+            onConplete={completeTodo(todo.text)}
           />
           ))}
     </TodoList>
