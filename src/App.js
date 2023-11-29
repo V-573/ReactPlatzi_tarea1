@@ -5,27 +5,44 @@ import { TodoItem } from "./TodoItem";
 import { CreateTodoButton } from "./CreateTodoButton";
 import React from "react";
 import "./App.css";
-const defaultTodos = [
-  {
-    text: "Cortar Cebolla",
-    completed: true,
-  },
-  {
-    text: "Cortar Cebolla 2",
-    completed: true,
-  },
-  {
-    text: "tomar el curso",
-    completed: false,
-  },
-  {
-    text: "tomar el curso2",
-    completed: false,
-  },
-];
+
+// const defaultTodos = [
+//   {
+//     text: "Cortar Cebolla",
+//     completed: true,
+//   },
+//   {
+//     text: "Cortar Cebolla 2",
+//     completed: true,
+//   },
+//   {
+//     text: "tomar el curso",
+//     completed: false,
+//   },
+//   {
+//     text: "tomar el curso2",
+//     completed: false,
+//   },
+// ];
+
+// localStorage.setItem('TODOS_V1', defaultTodos);
+
+// localStorage.removeItem('TODOS_V1');
+
 
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+
+  let parsedTodos;
+  if (!localStorageTodos) {
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setSearchValue] = React.useState("");
   const completedTodos = todos.filter((todo) => !!todo.completed).length;  // la doble !! negacion me permite mostrar a el programador que este revisando mi codigo que estoy treabajando con booleanos
   //en la linea anterior filtramos el valor del estado (todos). es un array que se forma con filter y contiene los elementos que sean completed=true y con la propiedad del array para saber el tamaño sacamos el total de las tareas completadas, osea que tienen el valor true
@@ -38,12 +55,23 @@ function App() {
     return todoText.includes(searchText);
   });
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+    setTodos(newTodos);
+
+
+
+}
+
+
+
+
   const completeTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
 
     newTodos[todoIndex].completed = true; //aca doy un nuevo valor al props.completed = true
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   const deleteTodo = (text) => {
@@ -51,7 +79,7 @@ function App() {
     const todoIndex = newTodos.findIndex((todo) => todo.text == text);
 
     newTodos.splice(todoIndex, 1); // aca quito el elemento con splice que tiene como parametro el indice del elemento a borrar y la cantidad de elementos a borrar desde ese indice especificado
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
 
   return (
