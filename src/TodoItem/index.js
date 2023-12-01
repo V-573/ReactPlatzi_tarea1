@@ -1,8 +1,10 @@
-import { CompleteIcon } from './CompleteIcon.js';
-import { DeleteIcon } from './DeleteIcon.js';
+import { CompleteIcon } from '../TodoIcon/CompleteIcon';
+import { DeleteIcon } from '../TodoIcon/DeleteIcon';
 
 
 import './TodoItem.css';
+
+
 function TodoItem(props) {
    console.log("Props en TodoItem:", props);
   return (
