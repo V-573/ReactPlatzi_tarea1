@@ -1,9 +1,19 @@
+import React from 'react';
 import './TodoCounter.css'
+import { TodoContext } from '../TodoContext';
 
-function TodoCounter({ completed, total }) { // desestructuro los props con los {} y por dentro recibo los props
+function TodoCounter() { // desestructuro los props con los {} y por dentro recibo los props
+ 
+ 
+  const {
+    completedTodos,
+    totalTodos,
+  } = React.useContext(TodoContext);
+ 
+
   return (
       <h1 className='TodoCounter'>
-          Has completado <span>{completed}</span> de <span>{total}</span> ToDos {/*en este espacio reenderizo el contenido de mi html, este es un fragmento de react lo que retorno para reenderizar*/}
+          Has completado <span>{completedTodos}</span> de <span>{totalTodos}</span> ToDos {/*en este espacio reenderizo el contenido de mi html, este es un fragmento de react lo que retorno para reenderizar*/}
     </h1>
 
   );

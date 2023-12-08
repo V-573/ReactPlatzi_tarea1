@@ -6,7 +6,7 @@ import './TodoItem.css';
 
 
 function TodoItem(props) {
-   console.log("Props en TodoItem:", props);
+ 
   return (
     <li className='TodoItem'>
       <CompleteIcon
