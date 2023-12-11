@@ -16,7 +16,7 @@ const {
     error,
   } = useLocalStorage("TODOS_V1", []);
   const [searchValue, setSearchValue] = React.useState("");
-  const [openModal, setOpenModal] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const completedTodos = todos.filter((todo) => !!todo.completed).length; // la doble !! negacion me permite mostrar a el programador que este revisando mi codigo que estoy treabajando con booleanos
   //en la linea anterior filtramos el valor del estado (todos). es un array que se forma con filter y contiene los elementos que sean completed=true y con la propiedad del array para saber el tamaño sacamos el total de las tareas completadas, osea que tienen el valor true
   const totalTodos = todos.length; // aca el estado (todos) contiene el total de tareas  y es un array  al que aprovechamos para usar la propiedad para saber el tamaño
@@ -24,10 +24,20 @@ const {
   const searchedTodos = todos.filter((todo) => {
     // componente searchTodos
     const todoText = todo.text.toLowerCase();
-    const searchText = searchValue.toLocaleLowerCase();
+    const searchText = searchValue.toLowerCase();
 
     return todoText.includes(searchText);
   });
+
+  const addTodo = (text) => {
+    const newTodos = [...todos];
+    newTodos.push({
+      text,
+      completed: false,
+    });
+    saveTodos(newTodos);
+
+  };
 
   const completeTodo = (text) => {
     const newTodos = [...todos];
@@ -54,6 +64,7 @@ const {
         searchValue,
         setSearchValue,
         searchedTodos,
+        addTodo,
         completeTodo,
         deleteTodo,
         openModal,
